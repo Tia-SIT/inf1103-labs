@@ -1,0 +1,25 @@
+git log
+commit b2fa46fbc645fe4fc43063c68551092c22e265a8 (HEAD -> main, origin/main)
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 19:38:12 2026 +0800
+
+    after creating the docker file
+
+commit f05cd43ce039aa32a3a1a4ff0d28d679484bf045
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 17:56:55 2026 +0800
+
+    adding my lab files to the repo
+
+commit 40f42a35631f66e907b0ace62565aa021b666be5
+Author: Tia <solanki.tiaa@gmail.com>
+Date:   Fri Sep 4 17:19:41 2026 +0800
+
+    user information and follower tracking
+
+commit 4a4b3c1767a033c4b6fc66c567120f3b1c125526
+Author: Tia <solanki.tiaa@gmail.com>
+Date:   Fri Sep 4 16:55:15 2026 +0800
+
+gitHub repo link
+https://github.com/Tia-SIT/inf1103-labs.git
