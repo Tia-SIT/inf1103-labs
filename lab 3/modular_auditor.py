@@ -1,34 +1,62 @@
-inventory = 0 
+inventory = 0
 failed_entries = 0
+total_tax = 0
 
-while True:
-    stock_quantity = input('Enter Stock Quantity: ')
 
-    if stock_quantity == "Quit" or stock_quantity == "quit":
-        break
+def get_valid_input():
+    while True:
+        failed_entries = 0
+        stock_quantity = input('Enter your stock_quantity: ').strip()
 
-    try:
-        quanity = int(stock_quantity)
+        if stock_quantity.lower() == "quit":
+            return "quit"
 
-    except ValueError:
-        print("This is not a valid number, enter a valid number")
-        failed_entries = failed_entries + 1
-        continue
+        try:
+            quantity = int(stock_quantity)
 
-    if quanity < 0:
-        print('This is a negative number - please print a positive number: ')
-        failed_entries = failed_entries + 1
-        continue
+        except(ValueError):
+            print('This is not a valid error, enter a valid error')
+            return "invalid"
 
-    inventory = inventory + quanity
-    if inventory > 500:
-        print('Alert! Your inventory has exceeded 500 units!')
-        break
+        if quantity < 0:
+            print('This is a negative number - please provide a positive number')
+            return "invalid"
 
-print('Total Units Processed', inventory)
-print('No. of failed entries: ', failed_entries)
+        return quantity
+
+def process_delivery(current_total, new_value):
+        new_value = current_total + new_value
+
+        if new_value > 500:
+            print('Alert! Your inventory has exceeded 500 unit')
+
+        return new_value
     
 
+def calculate_tax(amount):
+    tax = 0.1*amount
+    return tax
+    
 
+def generate_report(total_units, failed_attempts):
+    print(f""""----- Summary Report ---------
+    inventory : {inventory}
+    failed entries : {failed_entries}
+    tax: {tax}
 
+    
+    """)
 
+while True:
+    result = get_valid_input()
+    if result == "quit":
+        break
+
+    elif result == "invalid":
+        failed_entries = failed_entries + 1
+
+    else:
+        inventory = process_delivery(inventory, result)
+        tax = total_tax + calculate_tax(inventory)
+
+generate_report(inventory, failed_entries)
