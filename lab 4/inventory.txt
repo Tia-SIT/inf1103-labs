@@ -1,0 +1,3 @@
+1001, monitir, 56
+1002, water bottle , 45
+1003, extension cables, 56
