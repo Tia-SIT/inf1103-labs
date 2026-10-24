@@ -1,0 +1,32 @@
+[
+    {
+        "product_id": "P001",
+        "name": "Laptop",
+        "price": 1200.0,
+        "stock": 15
+    },
+    {
+        "product_id": "P002",
+        "name": "Keyboard",
+        "price": 100.0,
+        "stock": 20
+    },
+    {
+        "product_id": "P003",
+        "name": "Mouse",
+        "price": 50.0,
+        "stock": 30
+    },
+    {
+        "product_id": "P004",
+        "name": "Piano",
+        "price": 345.0,
+        "stock": 123
+    },
+    {
+        "product_id": "P005",
+        "name": "ipad",
+        "price": 65.0,
+        "stock": 466
+    }
+]
