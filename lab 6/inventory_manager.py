@@ -128,7 +128,7 @@ def search_flow(inventory):
         print(f"-Name: {product.get_name()} \n-ID: {product.get_product_id()} \n-Price: ${product.get_price():.2f} \n-Stock: {product.get_stock()}")
 
 def save_inventory(inventory):
-    print("saving Inventory...")
+    print("Inventory loaded successfully")
     product_list = []
 
     for product in inventory.get_all_products():
@@ -169,7 +169,7 @@ def load_inventory(inventory):
     for product in loaded_products:
         inventory.add_product(product)
 
-    print("Saving inventory...")
+    print("saving inventory...")
 
 
 def main():
@@ -204,9 +204,6 @@ def main():
             save_inventory(inventory)
             print("Thank you for using Inventory Management System.")
             print("Program terminated.")
-            break
-
-        elif choice == "7":
             break
 
         else:
