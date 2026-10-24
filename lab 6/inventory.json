@@ -28,5 +28,11 @@
         "name": "ipad",
         "price": 65.0,
         "stock": 466
+    },
+    {
+        "product_id": "P006",
+        "name": "Table",
+        "price": 456.0,
+        "stock": 25
     }
 ]
