@@ -1,12 +1,17 @@
+from abc import ABC, abstractmethod
 import json
 import os
 
-class Product:
+class Product(ABC):
     def __init__(self, product_id, name, price, stock):
         self.__product_id = product_id
         self.__name = name
         self.__price = price
         self.__stock = stock
+
+    @abstractmethod
+    def get_fulfilment_info(self):
+        pass
 
     def get_name(self):
         return self.__name
@@ -30,7 +35,13 @@ class Product:
     def display_information(self):
         print(f"ID: {self.__product_id} | Name: {self.__name} | Price: ${self.__price:.2f} | Stock: {self.__stock}")  
 
-class PhysicalProduct(Product):
+class CanBeShipped(ABC):
+    @abstractmethod
+    def calculate_shipping_cost(self):
+        """Implementing classes must provide a way to calculate shipping cost."""
+        pass
+
+class PhysicalProduct(Product, CanBeShipped):
     def __init__(self, product_id, name, price, stock, weight):
         super().__init__(product_id, name, price, stock)   # 6. reuse Product's constructor
         self.__weight = weight                              # 7. new weight attribute (kg)
@@ -41,6 +52,13 @@ class PhysicalProduct(Product):
     def display_information(self):                          # 8. product info + weight
         super().display_information()
         print(f"   Weight: {self.__weight} kg")
+
+    def get_fulfilment_info(self):
+        return "This product requires physical shipping."
+
+    def calculate_shipping_cost(self):
+        return 5.00 + (self.__weight * 2.00)    # $5 base fee + $2 per kg
+
 
 class DigitalProduct(Product):
     def __init__(self, product_id, name, price, stock, download_size):
@@ -53,6 +71,9 @@ class DigitalProduct(Product):
     def display_information(self):                          # 11. product info + download size
         super().display_information()
         print(f"   Download size: {self.__download_size} MB")
+
+    def get_fulfilment_info(self):
+        return "This product is delivered digitally via download."
 
 class Inventory:
     def __init__(self):
