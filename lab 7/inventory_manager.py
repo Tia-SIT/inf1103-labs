@@ -35,6 +35,14 @@ class Product(ABC):
     def display_information(self):
         print(f"ID: {self.__product_id} | Name: {self.__name} | Price: ${self.__price:.2f} | Stock: {self.__stock}")  
 
+    def to_dict(self):
+        return {
+            "product_id": self.__product_id,
+            "name": self.__name,
+            "price": self.__price,
+            "stock": self.__stock
+        }    
+
 class CanBeShipped(ABC):
     @abstractmethod
     def calculate_shipping_cost(self):
@@ -59,6 +67,10 @@ class PhysicalProduct(Product, CanBeShipped):
     def calculate_shipping_cost(self):
         return 5.00 + (self.__weight * 2.00)    # $5 base fee + $2 per kg
 
+    def to_dict(self):
+        return {"type": "physical", **super().to_dict(), "weight": self.__weight}
+
+
 
 class DigitalProduct(Product):
     def __init__(self, product_id, name, price, stock, download_size):
@@ -74,6 +86,9 @@ class DigitalProduct(Product):
 
     def get_fulfilment_info(self):
         return "This product is delivered digitally via download."
+
+    def to_dict(self):
+        return {"type": "digital", **super().to_dict(), "download_size": self.__download_size}
 
 class Inventory:
     def __init__(self):
@@ -97,6 +112,21 @@ class Inventory:
 
     def get_all_products(self):
         return list(self.__products)
+
+def create_product_from_dict(item):
+    # Lab 6 files have no "type" field. Treat those as physical products with no recorded weight.
+    if "type" not in item:
+        return PhysicalProduct(item["product_id"], item["name"], item["price"], item["stock"], 0.0)
+
+    product_type = item["type"]
+
+    if product_type == "physical":
+        return PhysicalProduct(item["product_id"], item["name"], item["price"], item["stock"], item["weight"])
+
+    if product_type == "digital":
+        return DigitalProduct(item["product_id"], item["name"], item["price"], item["stock"], item["download_size"])
+
+    raise ValueError(f"Unknown product type: {product_type}")
 
 def show_menu():
     print("----------------- MENU -----------------")
@@ -138,10 +168,41 @@ def add_product_flow(inventory):
         print("Please enter a valid number: ")
         return
 
-    newProduct = Product(user_id, user_name, user_price, user_stock)
+        print("Product type:")
+    print("1. Physical product")
+    print("2. Digital product")
+    type_choice = input("Choose product type: ").strip()
 
-    inventory.add_product(newProduct)
+    try:
+        if type_choice == "1":
+            weight = float(input("Input weight (kg): "))
+
+            if weight < 0:
+                print("Enter a valid number")
+                return
+
+            new_product = PhysicalProduct(user_id, user_name, user_price, user_stock, weight)
+
+        elif type_choice == "2":
+            download_size = float(input("Input download size (MB): "))
+
+            if download_size < 0:
+                print("Enter a valid number")
+                return
+
+            new_product = DigitalProduct(user_id, user_name, user_price, user_stock, download_size)
+
+        else:
+            print("Invalid product type.")
+            return
+
+    except ValueError:
+        print("Please enter a valid number: ")
+        return
+
+    inventory.add_product(new_product)
     print("Product added successfully!")
+
 
 def update_stock_flow(inventory):
     user_id = input("Input your ID: ").strip().upper()
@@ -170,26 +231,22 @@ def search_flow(inventory):
         print("Product not Found")
         
     else:
-        print(f"-Name: {product.get_name()} \n-ID: {product.get_product_id()} \n-Price: ${product.get_price():.2f} \n-Stock: {product.get_stock()}")
+        product.display_information()
+        print(f"   {product.get_fulfilment_info()}")
+
 
 def save_inventory(inventory):
-    print("Inventory loaded successfully")
+    print("Saving inventory...")
     product_list = []
 
     for product in inventory.get_all_products():
-        product_dict = {
-            "product_id": product.get_product_id(),
-            "name": product.get_name(),
-            "price": product.get_price(),
-            "stock": product.get_stock()
-        }
-
-        product_list.append(product_dict)
+        product_list.append(product.to_dict())
 
     with open("inventory.json", "w") as file:
         json.dump(product_list, file, indent=4)
 
     print("Inventory saved successfully to inventory.json.")
+
 
 def load_inventory(inventory):
     if not os.path.exists("inventory.json"):
@@ -205,16 +262,18 @@ def load_inventory(inventory):
         loaded_products = []
         for item in data:
             loaded_products.append(
-                Product(item["product_id"], item["name"], item["price"], item["stock"])
+                loaded_products.append(create_product_from_dict(item))
             )
-    except (json.JSONDecodeError, KeyError, TypeError):
+        
+    except (json.JSONDecodeError, KeyError, TypeError, ValueError):
         print("inventory.json is damaged. Starting with an empty inventory.")
         return
 
     for product in loaded_products:
         inventory.add_product(product)
 
-    print("saving inventory...")
+    print("Inventory loaded successfully.")
+
 
 
 def main():

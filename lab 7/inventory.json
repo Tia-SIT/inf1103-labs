@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "type": "digital",
+        "product_id": "1001",
+        "name": "Laptop",
+        "price": 1234.0,
+        "stock": 12,
+        "download_size": 234.0
+    }
+]
