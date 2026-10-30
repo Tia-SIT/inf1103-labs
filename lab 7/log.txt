@@ -1,0 +1,207 @@
+﻿commit 1b4d84625aa893a5bb358fd96e4710b68b3f04f5
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 01:12:52 2026 +0800
+
+    Complete Lab 7: inheritance, abstract classes, interface, tests, reflection
+
+commit f7a0d3513255aa928ac4abbfb44a331276e85040
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 00:52:03 2026 +0800
+
+    tested
+
+commit b8fedb4f5b85d92ddea60fa06d6dd2f674144b3a
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 18:32:51 2026 +0800
+
+    Add .gitignore
+
+commit 12ad55f1a64c7932e3b5d6494bc0d094f9bcad42
+Merge: d296d7a a878f3a
+Author: Tia-SIT <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 18:27:14 2026 +0800
+
+    Merge pull request #1 from Tia-SIT/lab7-uml-diagram
+    
+    Add Lab 7 UML class diagram
+
+commit a878f3a8262e652ccef17bc6b08aec99b08f2fa2
+Author: Kiro <kiro@users.noreply.github.com>
+Date:   Fri Oct 30 10:14:38 2026 +0000
+
+    Add Lab 7 UML class diagram
+
+commit d296d7a6b44598714def7dc4a6ff2c4fa84d80a6
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 17:15:10 2026 +0800
+
+    Add CanBeShipped interface
+
+commit 7e88ecc5c06588522821bddba61d0b76c29b8a85
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 13:38:11 2026 +0800
+
+    Add PhysicalProduct and DigitalProduct subclasses
+
+commit 15ae8b2baa5dc1036a61e9c5f5357ef3aa913d88
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 13:17:06 2026 +0800
+
+    Add PhysicalProduct and DigitalProduct subclasses
+
+commit c572a3a136059ad4bee56346eb4c0d0c76fc467f
+Merge: 2811931 76c5e5b
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 13:08:54 2026 +0800
+
+    Merge branch 'main' of https://github.com/Tia-SIT/inf1103-labs
+
+commit 28119319d03cf64a868949a8db8cad99c1db1ff8
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 12:43:22 2026 +0800
+
+    Lab 7: add physical and digital product classes
+
+commit 76c5e5bacf1d943f92e10f7a5cc8de87481ebc06
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 01:28:10 2026 +0800
+
+    updated git log
+
+commit 77b1c696948c943fb5868793db10479b194b66ae
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 01:26:24 2026 +0800
+
+    added lab 6 reflection
+
+commit 3f9ecd26f24fd8144330e318c0f5f01a765135f4
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:59:00 2026 +0800
+
+    updated log.txt
+
+commit aa19fd3ee0620547f3a661f5ebfd242a76d2d426
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:49:24 2026 +0800
+
+    updated git log.txt file
+
+commit 4fdc7ef4f3bd84bd998766308bec875990a99fc2
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:44:21 2026 +0800
+
+    Add docker screenshots, log and updated inventory
+
+commit 8e2fac8f8d17c0836471894098867a365acc4952
+Author: Tia-SIT <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:31:09 2026 +0800
+
+    Delete lab 6/lab6_UML.drawio.png
+
+commit f700aa8bd3f79d20d5904b6cb020508caac92d52
+Author: Tia-SIT <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:30:26 2026 +0800
+
+    Added UML_lab6.drawio.png
+
+commit fccbe63f540c73e9b71fb609efb17e04202a1329
+Author: Tia-SIT <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:29:24 2026 +0800
+
+    Added lab6_UML.drawio.png
+
+commit 9ae2c517dfc9065c6d43cb9c429c2bd678d74f1c
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:28:03 2026 +0800
+
+    Add remaining lab 6 files
+
+commit 9687c20720697ae3ba0dba1d07366f80e6acfa65
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:23:41 2026 +0800
+
+    Add lab 6 OOP inventory manager
+
+commit 5f8ddc177c2d9300b7bf0fc4cf841ff0a96ef05f
+Author: Tia-SIT <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:08:59 2026 +0800
+
+    Delete lab 6
+
+commit 01ba29c3b5ec26e21806fd9aa9c98358d7d928ba
+Author: Tia-SIT <2603925@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 00:08:23 2026 +0800
+
+    Create lab 6
+
+commit 278a7cf83c6e67042832e1c8bc59a0dac6c4ab9c
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 2 21:45:47 2026 +0800
+
+    Implement and verify save_inventory function
+
+commit a12660c9a029ba0b544a8beb06f13337b9b1dffa
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Oct 2 17:07:00 2026 +0800
+
+    Initialize product dictionary and sample products
+
+commit c72bc94561edd02199ecc821186a2b6b61567435
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 25 17:37:24 2026 +0800
+
+    Complete Lab 4 persistent auditor and Docker setup
+
+commit e7d582803847197784af3146c416f974321931ec
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 25 17:10:05 2026 +0800
+
+    finished persistant_auditor.py
+
+commit 4b0035a899e684f7242244682ec3ec98b01096d6
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 18 14:39:51 2026 +0800
+
+    updated lab 3 code
+
+commit 8be78605c00650d151e404c5be8cf7d16b29f59f
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 18 12:19:21 2026 +0800
+
+    adding all files to the lab 3 repo
+
+commit b6c61b24e4f422e663a8952c2660cc9b3f8a9419
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 18 12:18:19 2026 +0800
+
+    Initialize modular_auditor.py for Lab 3
+
+commit 98d2d564452e213fb6992d0354d4b327beed77a6
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 20:06:42 2026 +0800
+
+    file submission to xsite
+
+commit b2fa46fbc645fe4fc43063c68551092c22e265a8
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 19:38:12 2026 +0800
+
+    after creating the docker file
+
+commit f05cd43ce039aa32a3a1a4ff0d28d679484bf045
+Author: Tia <2603925@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 17:56:55 2026 +0800
+
+    adding my lab files to the repo
+
+commit 40f42a35631f66e907b0ace62565aa021b666be5
+Author: Tia <solanki.tiaa@gmail.com>
+Date:   Fri Sep 4 17:19:41 2026 +0800
+
+    user information and follower tracking
+
+commit 4a4b3c1767a033c4b6fc66c567120f3b1c125526
+Author: Tia <solanki.tiaa@gmail.com>
+Date:   Fri Sep 4 16:55:15 2026 +0800
+
+    First Post
