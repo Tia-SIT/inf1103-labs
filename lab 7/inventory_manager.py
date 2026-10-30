@@ -168,7 +168,7 @@ def add_product_flow(inventory):
         print("Please enter a valid number: ")
         return
 
-        print("Product type:")
+    print("Product type:")
     print("1. Physical product")
     print("2. Digital product")
     type_choice = input("Choose product type: ").strip()
@@ -261,9 +261,7 @@ def load_inventory(inventory):
 
         loaded_products = []
         for item in data:
-            loaded_products.append(
-                loaded_products.append(create_product_from_dict(item))
-            )
+             loaded_products.append(create_product_from_dict(item))
         
     except (json.JSONDecodeError, KeyError, TypeError, ValueError):
         print("inventory.json is damaged. Starting with an empty inventory.")
