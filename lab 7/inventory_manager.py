@@ -30,6 +30,30 @@ class Product:
     def display_information(self):
         print(f"ID: {self.__product_id} | Name: {self.__name} | Price: ${self.__price:.2f} | Stock: {self.__stock}")  
 
+class PhysicalProduct(Product):
+    def __init__(self, product_id, name, price, stock, weight):
+        super().__init__(product_id, name, price, stock)   # 6. reuse Product's constructor
+        self.__weight = weight                              # 7. new weight attribute (kg)
+
+    def get_weight(self):
+        return self.__weight
+
+    def display_information(self):                          # 8. product info + weight
+        super().display_information()
+        print(f"   Weight: {self.__weight} kg")
+
+class DigitalProduct(Product):
+    def __init__(self, product_id, name, price, stock, download_size):
+        super().__init__(product_id, name, price, stock)   # 9. reuse Product's constructor
+        self.__download_size = download_size                # 10. new download_size attribute (MB)
+
+    def get_download_size(self):
+        return self.__download_size
+
+    def display_information(self):                          # 11. product info + download size
+        super().display_information()
+        print(f"   Download size: {self.__download_size} MB")
+
 class Inventory:
     def __init__(self):
         self.__products = []
