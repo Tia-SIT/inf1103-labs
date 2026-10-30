@@ -14,5 +14,13 @@
         "price": 23.0,
         "stock": 234,
         "download_size": 123.0
+    },
+    {
+        "type": "physical",
+        "product_id": "1003",
+        "name": "Table",
+        "price": 34.0,
+        "stock": 12,
+        "weight": 12.0
     }
 ]

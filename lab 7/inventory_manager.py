@@ -90,6 +90,24 @@ class DigitalProduct(Product):
     def to_dict(self):
         return {"type": "digital", **super().to_dict(), "download_size": self.__download_size}
 
+class SubscriptionProduct(Product):
+    def __init__(self, product_id, name, price, stock, duration_months):
+        super().__init__(product_id, name, price, stock)
+        self.__duration_months = duration_months
+
+    def get_duration_months(self):
+        return self.__duration_months
+
+    def display_information(self):
+        super().display_information()
+        print(f"   Duration: {self.__duration_months} months")
+
+    def get_fulfilment_info(self):
+        return "This product is delivered as an ongoing online subscription."
+
+    def to_dict(self):
+        return {"type": "subscription", **super().to_dict(), "duration_months": self.__duration_months}
+
 class Inventory:
     def __init__(self):
         self.__products = []
@@ -125,6 +143,10 @@ def create_product_from_dict(item):
 
     if product_type == "digital":
         return DigitalProduct(item["product_id"], item["name"], item["price"], item["stock"], item["download_size"])
+
+    if product_type == "subscription":
+        return SubscriptionProduct(item["product_id"], item["name"], item["price"], item["stock"], item["duration_months"])
+
 
     raise ValueError(f"Unknown product type: {product_type}")
 
@@ -191,6 +213,16 @@ def add_product_flow(inventory):
                 return
 
             new_product = DigitalProduct(user_id, user_name, user_price, user_stock, download_size)
+
+        elif type_choice == "3":
+            duration = int(input("Input duration (months): "))
+
+            if duration <= 0:
+                print("Enter a valid number")
+                return
+
+            new_product = SubscriptionProduct(user_id, user_name, user_price, user_stock, duration)
+
 
         else:
             print("Invalid product type.")
