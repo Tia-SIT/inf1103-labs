@@ -31,7 +31,7 @@ class Product(ABC):
         self._supplier.display_information()
 
     @abstractmethod
-    def get_fufilment_info(self):
+    def get_fulfilment_info(self):
         pass
 
     @property
@@ -66,7 +66,7 @@ class PhysicalProduct(Product, CanBeShipped):
         super().display_information()
         print(f"   Weight: {self._weight} kg")
 
-    def get_fufilment_info(self):
+    def get_fulfilment_info(self):
         return f"{self._product_name} will be shipped (weight: {self._weight} kg)."
 
     def calculate_shipping_cost(self):
@@ -83,7 +83,7 @@ class DigitalProduct(Product):
         super().display_information()
         print(f"   Download Size: {self._download_size} MB")
 
-    def get_fufilment_info(self):
+    def get_fulfilment_info(self):
         return f"{self._product_name} will be emailed as a download link ({self._download_size} MB)."
 
 class Inventory:
@@ -257,7 +257,7 @@ show_inventory(inventory_a)
 check("P1 is no longer found in Inventory A", inventory_a.find_product("P1") is None, True)
 
 step("Is the book object still usable?")
-print(f"   {book.get_fufilment_info()}")
+print(f"   {book.get_fulfilment_info()}")
 book.update_stock(8)
 print("   Stock updated to 8")
 print(f"   Shipping cost: {book.calculate_shipping_cost()}")
@@ -274,8 +274,8 @@ show_inventory(inventory_a)
 show_inventory(inventory_b)
 
 step("Do the products still exist and work?")
-print(f"   {book.get_fufilment_info()}")
-print(f"   {ebook.get_fufilment_info()}")
+print(f"   {book.get_fulfilment_info()}")
+print(f"   {ebook.get_fulfilment_info()}")
 
 # ======================================================================
 # SECTION 4: COMPOSITION (Order <>- OrderLine)
@@ -311,7 +311,7 @@ step("5. Remove the e-book line from O1 using an Order method")
 order_1.remove_order_line("D1")
 order_1.display_information()
 order_2.display_information()
-print(f"   The e-book itself still works: {ebook.get_fufilment_info()}")
+print(f"   The e-book itself still works: {ebook.get_fulfilment_info()}")
 
 step("6. Delete the whole Order O2: what happens to its OrderLine?")
 line_ref = weakref.ref(line_in_o2)   # a weak reference does not keep the line alive
@@ -319,4 +319,68 @@ check("O2's line exists before the order is deleted", line_ref() is not None, Tr
 del line_in_o2
 del order_2
 check("O2's line is gone after the order is deleted ", line_ref() is None, True)
-print(f"   The book still works: {book.get_fufilment_info()}")
+print(f"   The book still works: {book.get_fulfilment_info()}")
+
+# ======================================================================
+# SECTION 6: LISKOV SUBSTITUTION (Product abstraction)
+# ======================================================================
+def show_product_details(product: Product) -> None:
+    # Only uses behaviour that EVERY Product promises to support.
+    product.display_information()
+    print(f"   {product.get_fulfilment_info()}")
+
+header("SECTION 6: LISKOV SUBSTITUTION  (Product abstraction)")
+
+step("1. One function, two product types (the function is never changed)")
+print("   show_product_details(book):")
+show_product_details(book)
+print()
+print("   show_product_details(ebook):")
+show_product_details(ebook)
+
+step("2. Both product types can be added to the same Inventory")
+lsp_inventory = Inventory("LSP Inventory")
+lsp_inventory.add_product(book)
+lsp_inventory.add_product(ebook)
+show_inventory(lsp_inventory)
+
+step("3. Inventory operations work on both types")
+check("find_product('P1') returns the physical product", lsp_inventory.find_product("P1") is book, True)
+check("find_product('D1') returns the digital product ", lsp_inventory.find_product("D1") is ebook, True)
+
+print()
+print("   update_stock(5) on every product in the Inventory:")
+for product in lsp_inventory.products:
+    product.update_stock(5)
+lsp_inventory.display_all_products()
+
+step("4. remove_product works for both types")
+lsp_inventory.remove_product("P1")
+lsp_inventory.remove_product("D1")
+show_inventory(lsp_inventory)
+
+# ======================================================================
+# SECTION 7.2: DEMONSTRATE POLYMORPHISM
+# ======================================================================
+header("SECTION 7.2: POLYMORPHISM  (one loop, different Product types)")
+
+step("1. Put both product types in the SAME Inventory")
+poly_inventory = Inventory("Poly Inventory")
+poly_inventory.add_product(book)
+poly_inventory.add_product(ebook)
+show_inventory(poly_inventory)
+
+# PREDICT FIRST: write what each product will print for get_fulfilment_info()
+step("2. ONE loop: display_information() and get_fulfilment_info() on every Product")
+for product in poly_inventory.products:
+    product.display_information()
+    print(f"   -> {product.get_fulfilment_info()}")
+    print()
+
+step("3. Check each object gave its OWN specialised result")
+expected = {
+    "P1": "Textbook will be shipped (weight: 2.0 kg).",
+    "D1": "E-book will be emailed as a download link (15 MB).",
+}
+for product in poly_inventory.products:
+    check(f"{product.product_id} message is correct", product.get_fulfilment_info(), expected[product.product_id])
