@@ -2,28 +2,29 @@ from abc import ABC, abstractmethod
 import weakref
 
 class Supplier():
-    def __init__(self, supplier_id, supplier_name, supplier_contact_email):
-        self._supplier_id = supplier_id
-        self._supplier_name = supplier_name
-        self._contact_email = supplier_contact_email
+    def __init__(self, supplier_id: str, supplier_name: str, supplier_contact_email: str) -> None:
+        self._supplier_id: str = supplier_id
+        self._supplier_name: str = supplier_name
+        self._contact_email: str = supplier_contact_email
 
-    def display_information(self):
+    def display_information(self) -> None:
         print(f"   Supplier ID: {self._supplier_id}")
         print(f"   Supplier Name: {self._supplier_name}")
         print(f"   Supplier Contact Email: {self._contact_email}")
 
 class Product(ABC):
-    def __init__(self, product_id: str, product_name: str, product_price: float, product_stock_quantity: int, supplier: Supplier):
+    def __init__(self, product_id: str, product_name: str, product_price: float,
+                 product_stock_quantity: int, supplier: Supplier) -> None:
         self._supplier: Supplier = supplier
-        self._product_id = product_id
-        self._product_name = product_name
-        self._product_price = product_price
-        self._product_stock_quantity = product_stock_quantity
+        self._product_id: str = product_id
+        self._product_name: str = product_name
+        self._product_price: float = product_price
+        self._product_stock_quantity: int = product_stock_quantity
 
-    def update_stock(self, quantity: int):
+    def update_stock(self, quantity: int) -> None:
         self._product_stock_quantity = quantity
 
-    def display_information(self):
+    def display_information(self) -> None:
         print(f"   Product ID: {self._product_id}")
         print(f"   Product Name: {self._product_name}")
         print(f"   Product Price: {self._product_price}")
@@ -31,15 +32,15 @@ class Product(ABC):
         self._supplier.display_information()
 
     @abstractmethod
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         pass
 
     @property
-    def supplier(self):
+    def supplier(self) -> Supplier:
         return self._supplier
 
     @property
-    def product_id(self):
+    def product_id(self) -> str:
         return self._product_id
 
     @property
@@ -50,44 +51,43 @@ class Product(ABC):
     def name(self) -> str:
         return self._product_name
 
-
-
 class CanBeShipped(ABC):
     @abstractmethod
-    def calculate_shipping_cost(self):
+    def calculate_shipping_cost(self) -> float:
         pass
 
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, product_weight, product_id, product_name, product_price, product_stock_quantity, supplier):
+    def __init__(self, product_weight: float, product_id: str, product_name: str,
+                 product_price: float, product_stock_quantity: int, supplier: Supplier) -> None:
         super().__init__(product_id, product_name, product_price, product_stock_quantity, supplier)
-        self._weight = product_weight
+        self._weight: float = product_weight
 
-    def display_information(self):
+    def display_information(self) -> None:
         super().display_information()
         print(f"   Weight: {self._weight} kg")
 
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         return f"{self._product_name} will be shipped (weight: {self._weight} kg)."
 
-    def calculate_shipping_cost(self):
+    def calculate_shipping_cost(self) -> float:
         return 5.00 + 1.50 * self._weight
 
 class DigitalProduct(Product):
-    def __init__(self, product_download_size, product_id, product_name,
-                 product_price, product_stock_quantity, supplier):
+    def __init__(self, product_download_size: float, product_id: str, product_name: str,
+                 product_price: float, product_stock_quantity: int, supplier: Supplier) -> None:
         super().__init__(product_id, product_name,
                          product_price, product_stock_quantity, supplier)
-        self._download_size = product_download_size
+        self._download_size: float = product_download_size
 
-    def display_information(self):
+    def display_information(self) -> None:
         super().display_information()
         print(f"   Download Size: {self._download_size} MB")
 
-    def get_fulfilment_info(self):
+    def get_fulfilment_info(self) -> str:
         return f"{self._product_name} will be emailed as a download link ({self._download_size} MB)."
 
 class Inventory:
-    def __init__(self, name: str = "Inventory"):
+    def __init__(self, name: str = "Inventory") -> None:
         self._name: str = name
         self._products: list[Product] = []
 
@@ -118,7 +118,7 @@ class Inventory:
             product.display_information()
 
 class OrderLine:
-    def __init__(self, product: Product, quantity: int):
+    def __init__(self, product: Product, quantity: int) -> None:
         self._product: Product = product    # a reference to an existing Product object
         self._quantity: int = quantity
 
@@ -137,7 +137,7 @@ class OrderLine:
         print(f"   {self._product.name} x {self._quantity} = {self.calculate_subtotal():.2f}")
 
 class Order:
-    def __init__(self, order_id: str):
+    def __init__(self, order_id: str) -> None:
         self._order_id: str = order_id
         self._order_lines: list[OrderLine] = []
 
@@ -173,10 +173,6 @@ class Order:
             order_line.display_information()
         print(f"   Total: {self.calculate_total():.2f}")
 
-
-
-
-
 # ======================================================================
 # TEST HELPERS (only used to make the output readable)
 # ======================================================================
@@ -190,7 +186,7 @@ def step(text: str) -> None:
     print()
     print(f">> {text}")
 
-def check(description: str, actual, expected) -> None:
+def check(description: str, actual: object, expected: object) -> None:
     status = "PASS" if actual == expected else "FAIL"
     print(f"   [{status}] {description}  ->  {actual}")
 
@@ -287,6 +283,7 @@ order_1 = Order("O1")
 order_1.add_order_line(book, 2)
 order_1.add_order_line(ebook, 1)
 order_1.display_information()
+check("Order O1 total is 119.97", round(order_1.calculate_total(), 2), 119.97)
 
 step("2. Add the SAME book to a different Order (O2)")
 order_2 = Order("O2")
@@ -294,11 +291,12 @@ order_2.add_order_line(book, 3)
 order_2.display_information()
 
 # PREDICT FIRST: write your prediction BEFORE running this part
-step("3. How many OrderLine objects and how many Product objects exist?")
+step("3. The SAME book was added to two Orders: how many objects exist?")
 all_lines = order_1.order_lines + order_2.order_lines
-print(f"   OrderLine objects: {len({id(line) for line in all_lines})}")
-print(f"   Product objects:   {len({id(line.product) for line in all_lines})}")
-del all_lines   # drop our own list so nothing outside the Orders keeps the lines alive
+book_lines = [line for line in all_lines if line.product is book]
+print(f"   OrderLine objects for the book: {len({id(line) for line in book_lines})}")
+print(f"   Product objects for the book:   {len({id(line.product) for line in book_lines})}")
+del all_lines, book_lines   # drop our own lists so nothing outside the Orders keeps the lines alive
 
 step("4. Each Order has its OWN line, but both lines point to the SAME book")
 line_in_o1 = order_1.order_lines[0]
